@@ -71,7 +71,10 @@
       <td>{{ payment.type }}</td>
       <td>{{ payment.booking.charging_slot.slot_no }}</td>
       <td>{{ payment.booking.charging_slot.time_slot.charging_station.name }}</td>
-      <td><a href="/payment_receipt/{{ payment.id }}" class="btn btn-sm btn-primary">View</a></td>
+      <td>
+        <a href="/payment_receipt/{{ payment.id }}" class="btn btn-sm btn-primary">View</a>
+        <a href="/payment_receipt/{{ payment.id }}?download=1" class="btn btn-sm btn-success">Download PDF</a>
+      </td>
     </tr>
   {% endfor %}
 </table>

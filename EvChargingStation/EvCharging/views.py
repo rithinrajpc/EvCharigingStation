@@ -547,6 +547,8 @@ def payment_receipt(request, payment_id):
     station = slot.time_slot.charging_station
     receipt_id = f"RCPT{payment.id:06d}"
 
+    auto_download = request.GET.get('download', '0') in ['1', 'true', 'yes']
+
     return render(request, "Charging Station/payment_receipt.html", {
         "receipt_id": receipt_id,
         "user": user,
@@ -554,6 +556,7 @@ def payment_receipt(request, payment_id):
         "slot": slot,
         "booking": booking,
         "amount": payment.amount,
+        "auto_download": auto_download,
     })
 
 

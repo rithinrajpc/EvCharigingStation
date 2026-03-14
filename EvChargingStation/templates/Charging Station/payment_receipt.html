@@ -41,4 +41,13 @@ const { jsPDF } = window.jspdf;
 
 <button onclick="downloadReceiptPDF()" class="btn btn-success">Download PDF</button>
 <button onclick="window.print()" class="btn btn-primary">Print Receipt</button>
+
+{% if auto_download %}
+<script>
+  // Trigger download automatically when ?download=1 is present
+  document.addEventListener('DOMContentLoaded', function () {
+    downloadReceiptPDF();
+  });
+</script>
+{% endif %}
 {% endblock %}
