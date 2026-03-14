@@ -1,0 +1,35 @@
+{% extends 'admin/admin index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<table width="572" border="4" cellspacing="1" cellpadding="3"class="table table-bordered">
+  <tr style="color:#D81324">
+    <th width="61" scope="col">SLNO</th>
+    <th width="68" scope="col">Name</th>
+    <th width="81" scope="col">Email</th>
+    <th width="101" scope="col">Contact</th>
+    <th width="104" scope="col">Place</th>
+    <th width="94" scope="col">LandMark</th>
+  </tr>
+    {% for i in data %}
+  <tr>
+    <td>&nbsp;{{ forloop.counter }}</td>
+    <td>&nbsp;{{ i.name }}</td>
+    <td>{{ i.email }}&nbsp;</td>
+    <td>{{ i.contact }}&nbsp;</td>
+    <td>{{ i.place }}</td>
+    <td>{{ i.land_mark }}</td>
+  </tr>
+    {% endfor%}
+</table>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'Charging Station/charging index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<table width="267" border="1" class="table table-bordered">
+  <tr style="color:#D81324">
+    <th width="98" scope="col">SL NO</th>
+    <th width="66" scope="col">Fare</th>
+    <th width="81" scope="col">&nbsp;</th>
+  </tr>
+    {% for i in data %}
+  <tr>
+    <td height="71">&nbsp;{{ forloop.counter }}</td>
+      <td>{{ i.fare }}</td>
+    <td align="center"><p><a href="/edit_charge/{{ i.id }}" class="btn btn-success">Edit</a></p>
+    <p><a href="/remove_charge/{{ i.id }}"class="btn btn-danger" onclick="return confirm('Are you sure?')">Remove</a></p>
+    </td>
+  </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
+{% endblock %}

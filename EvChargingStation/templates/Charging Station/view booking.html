@@ -1,0 +1,33 @@
+{% extends 'Charging Station/charging index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<table  border="1" class="table table-bordered">
+  <tr style="color:#D81324;text-align: center">
+    <th scope="row">SL NO</th>
+    <td ><strong>Date</strong></td>
+    <td ><strong>Status</strong></td>
+    <td ><strong>User Info</strong></td>
+    <td ><strong>Total Slot</strong></td>
+  </tr>
+    {% for i in data %}
+  <tr style="text-align: center">
+    <th scope="row">&nbsp{{ forloop.counter }}</th>
+    <td>{{ i.date }}</td>
+    <td>{{ i.status }}</td>
+    <td>{{ i.USER.name }}</td>
+      <td>{{ i.CHARGING_SLOT.slot_no }}</td>
+  </tr>
+{% endfor %}
+</table>
+
+</body>
+</html>
+{% endblock %}

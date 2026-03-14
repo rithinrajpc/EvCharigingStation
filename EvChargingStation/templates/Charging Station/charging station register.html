@@ -1,0 +1,147 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Basic Login Form A Flat Responsive Widget Template  :: w3layouts</title>
+<link href="/static/login/css/font-awesome.css" rel="stylesheet"><!-- Font-awesome-CSS -->
+<link href="/static/login/css/style.css" rel='stylesheet' type='text/css'/><!-- style.css -->
+<link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Basic Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+{#	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>#}
+{#		<script src="/static/login/js/jquery.min.js"></script>#}
+{#		<script>$(document).ready(function(c) {#}
+{#		$('.alert-close').on('click', function(c){#}
+{#			$('.main-agile').fadeOut('slow', function(c){#}
+{#				$('.main-agile').remove();#}
+{#			});#}
+{#		});	  #}
+{#	});#}
+{#	</script>#}
+</head>
+<body>
+	<h1>Register</h1>
+	<div class="main-agile">
+{#		<div class="alert-close"> </div>#}
+		<div class="content-wthree">
+		<div class="circle-w3layouts"></div>
+{#			<h2>SignUp</h2>#}
+			<form action="/reg_post" method="post">
+								<div class="inputs-w3ls">
+									<i class="fa fa-user" aria-hidden="true"></i>
+									<input type="text" name="textfield" placeholder="Name" pattern="[A-za-z]*" required=""/>
+								</div>
+
+                                 <div class="inputs-w3ls">
+									<i class="fa fa-envelope" aria-hidden="true"></i>
+									<input type="text" name="textfield2"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" required=""/>
+								</div>
+
+                                <div class="inputs-w3ls">
+									<i class="fa fa-phone" aria-hidden="true"></i>
+									<input type="text" name="textfield3" pattern="[6-9]{0-9}{9}" placeholder="Contact" required=""/>
+								</div>
+
+                                <div class="inputs-w3ls">
+									<i class="fa fa-home" aria-hidden="true"></i>
+									<input type="text" name="textfield4" placeholder="Place" pattern="[A-Za-z]*" required=""/>
+								</div>
+
+                                <div class="inputs-w3ls">
+									<i class="fas fa-map-marker-alt"></i>
+									<input type="text" name="textfield5" id="lt" placeholder="latitude" readonly/>
+								</div>
+
+                                <div class="inputs-w3ls">
+									<i class="fas fa-map-marker-alt"></i>
+									<input type="text" name="textfield7" id="lg" placeholder="longitude" readonly/>
+								</div>
+                                <div id="gmap"></div>
+
+								<div class="inputs-w3ls">
+									<i class="fa fa-key" aria-hidden="true"></i>
+									<input type="password" name="textfield6" pattern="[A-Za-z0-9]{3,9}" placeholder="Password" required=""/>
+								</div>
+                                <div class="inputs-w3ls">
+									<i class="fa fa-key" aria-hidden="true"></i>
+									<input type="password" name="textfield8" placeholder="confirm Password" required=""/>
+								</div>
+
+									<input type="submit" value="REGISTER">
+									<div class="wthree-text"> 
+										<ul> 
+{#											<li> <a href="hre#">Forgot password?</a> </li>#}
+										</ul>
+									</div>  
+								</form>
+		</div>
+	</div>
+	<div class="footer-w3l">
+{#		<p class="agileinfo"> &copy; 2017 Basic Login Form. All Rights Reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>#}
+	</div>
+</body>
+</html>
+
+
+<style type="text/css">
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+#gmap { width: 100%; height: 500px; border: double; }
+</style>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false"></script>
+<script type="text/javascript">
+var map, marker;
+initialize();
+function initialize() {
+    var myLatlng = new google.maps.LatLng(11.868536, 75.363197);
+    var myOptions = {
+        zoom: 7,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("gmap"), myOptions);
+    marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map
+    });
+
+    google.maps.event.addListener(map, "click", function(event) {
+        var clickLat = event.latLng.lat();
+        var clickLon = event.latLng.lng();
+        document.getElementById("lt").value = clickLat.toFixed(5);
+        document.getElementById("lg").value = clickLon.toFixed(5);
+        marker.setPosition(new google.maps.LatLng(clickLat, clickLon));
+    });
+
+    GetMylocation();
+}
+
+function GetMylocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    document.getElementById("lt").value = lat;
+    document.getElementById("lg").value = lon;
+
+    var myLatlng = new google.maps.LatLng(lat, lon);
+    map.setCenter(myLatlng);
+    map.setZoom(14);
+    marker.setPosition(myLatlng);
+}
+</script>

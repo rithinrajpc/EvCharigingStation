@@ -1,0 +1,37 @@
+{% extends 'Charging Station/charging index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="/edit_charging_slot_post/{{ data.id }}" method="post">
+<table border="1" class="table table-bordered">
+  <tr style="color:#D81324">
+    <td >SLOT NO</td>
+    <td >
+      <input type="text" name="slotno" id="textfield" value="{{ data.slot_no }}" class="form-control" required=""/></td>
+  </tr>
+  <tr style="color:#D81324">
+    <td >STATUS</td>
+    <td >
+      <select name="status" class="form-control" required>
+        <option value="available" {% if data.status == 'available' %}selected{% endif %}>Available</option>
+        <option value="booked" {% if data.status == 'booked' %}selected{% endif %}>Booked</option>
+        <option value="unavailable" {% if data.status == 'unavailable' %}selected{% endif %}>Unavailable</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td height="46" colspan="2" align="center"><input type="submit" name="button" class="btn btn-secondary" id="button" value="Edit" /></td>
+    </tr>
+</table>
+
+</form>
+</body>
+</html>
+{% endblock %}

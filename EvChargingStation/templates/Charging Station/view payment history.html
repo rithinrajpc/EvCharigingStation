@@ -1,0 +1,76 @@
+{% extends 'Charging Station/charging index.html' %}
+{% block body %}
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="/charging_station_view_payment_post#aaa" method="post">
+<table  border="1" class="table table-bordered">
+  <tr style="color:#D81324">
+    <th  scope="col ">Month</th>
+    <th  scope="col">
+      <select name="month" id="select"class="form-control" required>
+        <option>-select-</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+         <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+        
+
+      </select></th>
+    <th>Year</th>
+    <th>
+      <select name="year" id="select2" class="form-control" required>
+      <option style="color:white">-select-</option>
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+      <option value="2028">2028</option>
+      <option value="2029">2029</option>
+      <option value="2030">2030</option>
+      <option value="2031">2031</option>
+      <option value="2032">2032</option>
+      <option value="2033">2033</option>
+      <option value="2034">2034</option>
+      </select></th><br><br>
+    <th width="77" scope="col"><input type="submit" name="button" id="button" value="Search"class="btn btn-success" /></th>
+  </tr>
+
+</table>
+{% if data %}
+<table border="1" class="table table-bordered">
+      <tr>
+        <th scope="col">SL NO</th>
+        <th scope="col">Total</th>
+      </tr>
+    {% for i in data %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+          <td>{{ i.total_amount }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <div align="center" style="color:red"><p>No payment found in selected year...</p></div>
+{% endif %}
+
+
+</form>
+</body>
+</html>
+{% endblock %}

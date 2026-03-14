@@ -1,0 +1,45 @@
+{% extends 'Charging Station/charging index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<table width="324" border="1" class="table table-bordered">
+  <tr style="color:#D81324">
+    <th width="61" scope="row"><strong>#</strong></th>
+    <td width="69" align="center"><strong>Rating</strong></td>
+    <td width="82" align="center"><strong>Date</strong></td>
+    <td width="84" align="center"><strong>User Info</strong></td>
+    <td width="84" align="center"><strong>Email</strong></td>
+    <td width="84" align="center"><strong>Contact</strong></td>
+  </tr>
+    {% for i in data %}
+  <tr>
+      <td>{{forloop.counter }}</td>
+    <td>{% if i.rate == "1" %}
+        ★
+      {% elif i.rate == "2" %}
+        ★★
+      {% elif i.rate == "3" %}
+        ★★★
+      {% elif i.rate == "4" %}
+        ★★★★
+      {% elif i.rate == "5" %}
+        ★★★★★
+      {% endif %}</td>
+    <td>{{ i.date }}</td>
+    <td>{{ i.USER.name }}</td>
+    <td>{{ i.USER.email }}</td>
+    <td>{{ i.USER.contact}}</td>
+  </tr>
+     {% endfor %}
+</table>
+
+</body>
+</html>
+{% endblock %}
