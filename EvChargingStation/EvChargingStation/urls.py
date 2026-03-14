@@ -52,7 +52,7 @@ urlpatterns = [
     path('view_charge', views.view_charge),
     path('view_charging_slot/<id>', views.view_charging_slot),
     path('charging_station_view_payment', views.charging_station_view_payment),
-    path('charging_station_view_payment_post', views.charging_station_view_payment_post),
+    path('payment_receipt/<int:payment_id>', views.payment_receipt),
     path('view_profile', views.view_profile),
     path('view_rating', views.view_rating),
     path('view_time_slot', views.view_time_slot),

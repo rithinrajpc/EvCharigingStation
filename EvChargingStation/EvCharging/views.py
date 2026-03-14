@@ -508,13 +508,53 @@ def view_rating(request):
 # PAYMENT
 # -----------------------------
 
+from django.shortcuts import get_object_or_404
+
+
 def charging_station_view_payment(request):
-    return render(request, "Charging Station/view payment history.html")
+    user = User.objects.filter(login_id=request.session.get('lid')).first()
+    payments = Payment.objects.none()
+    month = None
+    year = None
+
+    if user:
+        payments = Payment.objects.filter(booking__user=user).select_related(
+            'booking__charging_slot__time_slot__charging_station'
+        )
+
+        if request.method == 'POST':
+            month = request.POST.get('month')
+            year = request.POST.get('year')
+            if month and year:
+                try:
+                    month_num = datetime.datetime.strptime(month, "%B").month
+                    payments = payments.filter(date__year=int(year), date__month=month_num)
+                except Exception:
+                    pass
+
+    return render(request, "Charging Station/view payment history.html", {
+        "payments": payments,
+        "month": month,
+        "year": year,
+    })
 
 
-@csrf_exempt
-def charging_station_view_payment_post(request):
-    return redirect('/charging_station_view_payment')
+def payment_receipt(request, payment_id):
+    payment = get_object_or_404(Payment, id=payment_id)
+    booking = payment.booking
+    user = booking.user
+    slot = booking.charging_slot
+    station = slot.time_slot.charging_station
+    receipt_id = f"RCPT{payment.id:06d}"
+
+    return render(request, "Charging Station/payment_receipt.html", {
+        "receipt_id": receipt_id,
+        "user": user,
+        "station": station,
+        "slot": slot,
+        "booking": booking,
+        "amount": payment.amount,
+    })
 
 
 # -----------------------------

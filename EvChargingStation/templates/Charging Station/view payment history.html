@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<form action="/charging_station_view_payment_post#aaa" method="post">
+<form action="/charging_station_view_payment#aaa" method="post">
 <table  border="1" class="table table-bordered">
   <tr style="color:#D81324">
     <th  scope="col ">Month</th>
@@ -52,21 +52,31 @@
   </tr>
 
 </table>
-{% if data %}
+{% if payments %}
 <table border="1" class="table table-bordered">
-      <tr>
-        <th scope="col">SL NO</th>
-        <th scope="col">Total</th>
-      </tr>
-    {% for i in data %}
-      <tr>
-        <td>{{ forloop.counter }}</td>
-          <td>{{ i.total_amount }}</td>
-      </tr>
-    {% endfor %}
-    </table>
+  <tr>
+    <th scope="col">SL NO</th>
+    <th scope="col">Date</th>
+    <th scope="col">Amount</th>
+    <th scope="col">Type</th>
+    <th scope="col">Slot</th>
+    <th scope="col">Station</th>
+    <th scope="col">Receipt</th>
+  </tr>
+  {% for payment in payments %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ payment.date }}</td>
+      <td>₹{{ payment.amount }}</td>
+      <td>{{ payment.type }}</td>
+      <td>{{ payment.booking.charging_slot.slot_no }}</td>
+      <td>{{ payment.booking.charging_slot.time_slot.charging_station.name }}</td>
+      <td><a href="/payment_receipt/{{ payment.id }}" class="btn btn-sm btn-primary">View</a></td>
+    </tr>
+  {% endfor %}
+</table>
 {% else %}
-    <div align="center" style="color:red"><p>No payment found in selected year...</p></div>
+    <div align="center" style="color:red"><p>No payment found in selected range.</p></div>
 {% endif %}
 
 
