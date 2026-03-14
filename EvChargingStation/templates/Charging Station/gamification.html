@@ -1,0 +1,11 @@
+{% extends 'Charging Station/charging index.html' %}
+{% block body %}
+<h2>Gamification & Rewards</h2>
+<p>Your Points: {{ points }}</p>
+<ul>
+  {% for badge in badges %}
+    <li>{{ badge }}</li>
+  {% endfor %}
+</ul>
+<p>Earn points for bookings, reviews, and referrals!</p>
+{% endblock %}

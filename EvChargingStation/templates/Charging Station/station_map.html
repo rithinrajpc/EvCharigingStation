@@ -1,0 +1,26 @@
+{% extends 'Charging Station/charging index.html' %}
+{% block body %}
+<h2>Charging Stations Map</h2>
+<div id="map" style="height: 500px; width: 100%;"></div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script>
+  var map = L.map('map').setView([11.8745, 75.3704], 10); // Default center (Kannur)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Example stations, replace with Django context
+  var stations = [
+    {% for station in stations %}
+      {name: '{{ station.name }}', lat: {{ station.latitude }}, lng: {{ station.longitude }}, place: '{{ station.place }}'},
+    {% endfor %}
+  ];
+
+  stations.forEach(function(st) {
+    L.marker([st.lat, st.lng]).addTo(map)
+      .bindPopup('<b>' + st.name + '</b><br>' + st.place);
+  });
+</script>
+{% endblock %}

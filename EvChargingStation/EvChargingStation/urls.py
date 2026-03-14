@@ -15,6 +15,9 @@ urlpatterns = [
 
     # 2. Admin Dashboard Views
     path('admin_index', views.admin_index),
+    path('admin_analytics', views.analytics_dashboard),
+    path('station_detail/<int:station_id>', views.station_detail),
+    path('submit_rating/<int:station_id>', views.submit_rating),
     path('send_reply/<id>', views.send_reply),
     path('send_reply_post/<id>', views.send_reply_post),
     path('view_charging_station', views.view_charging_station),
@@ -26,9 +29,6 @@ urlpatterns = [
     path('approved_charging/<id>', views.approved_charging),
     path('rejected_charging/<id>', views.rejected_charging),
 
-    # 3. Charging Station Management
-    path('reg', views.reg),
-    path('reg_post', views.reg_post),
     path('add_charge', views.add_charge),
     path('add_charge_post', views.add_charge_post),
     path('add_charging_slot/<id>', views.add_charging_slot),
@@ -46,6 +46,7 @@ urlpatterns = [
     path('delete_charging_slot/<id>', views.delete_charging_slot),
     
     # 4. User/Station Interface
+    path('station_map', views.station_map),
     path('view_available_slot', views.view_available_slot),
     path('view_booking', views.view_booking),
     path('view_charge', views.view_charge),

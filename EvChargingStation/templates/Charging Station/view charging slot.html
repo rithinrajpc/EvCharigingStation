@@ -19,8 +19,16 @@
   <tr>
     <td height="89">{{ forloop.counter }}</td>
     <td>{{ i.slot_no }}</td>
-    <td align="center"><p><a href="/edit_charging_slot/{{ i.id }}" class="btn btn-primary">Edit</a></p>
-    <p><a href="/delete_charging_slot/{{i.id}}"class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></p></td>
+    <td align="center">
+      <span style="color:{% if i.status == 'available' %}green{% elif i.status == 'reserved' %}orange{% else %}red{% endif %};font-weight:bold;">
+        {{ i.status|title }}
+      </span>
+      {% if i.status == 'available' %}
+        <p><a href="/book_slot/{{ i.id }}" class="btn btn-success">Book</a></p>
+      {% endif %}
+      <p><a href="/edit_charging_slot/{{ i.id }}" class="btn btn-primary">Edit</a></p>
+      <p><a href="/delete_charging_slot/{{i.id}}"class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></p>
+    </td>
   </tr>
     {% endfor %}
 </table>

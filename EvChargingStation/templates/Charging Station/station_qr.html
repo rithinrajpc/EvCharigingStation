@@ -1,0 +1,10 @@
+{% extends 'Charging Station/charging index.html' %}
+{% block body %}
+<h2>Station QR Code</h2>
+<canvas id="stationQR"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script src="/static/js/qr_code.js"></script>
+<script>
+generateQRCode("{{ station_url }}", "stationQR");
+</script>
+{% endblock %}

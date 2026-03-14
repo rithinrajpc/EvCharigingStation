@@ -1,0 +1,52 @@
+{% extends 'admin/admin index.html' %}
+{% block body %}
+<h2>Admin Analytics Dashboard</h2>
+<canvas id="usageChart" width="400" height="200"></canvas>
+<canvas id="revenueChart" width="400" height="200"></canvas>
+<canvas id="activityChart" width="400" height="200"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  var usageCtx = document.getElementById('usageChart').getContext('2d');
+  var usageChart = new Chart(usageCtx, {
+    type: 'bar',
+    data: {
+      labels: {{ usage_labels|safe }},
+      datasets: [{
+        label: 'Station Usage',
+        data: {{ usage_data|safe }},
+        backgroundColor: 'rgba(54, 162, 235, 0.5)'
+      }]
+    }
+  });
+
+  var revenueCtx = document.getElementById('revenueChart').getContext('2d');
+  var revenueChart = new Chart(revenueCtx, {
+    type: 'line',
+    data: {
+      labels: {{ revenue_labels|safe }},
+      datasets: [{
+        label: 'Revenue',
+        data: {{ revenue_data|safe }},
+        backgroundColor: 'rgba(255, 206, 86, 0.5)'
+      }]
+    }
+  });
+
+  var activityCtx = document.getElementById('activityChart').getContext('2d');
+  var activityChart = new Chart(activityCtx, {
+    type: 'pie',
+    data: {
+      labels: {{ activity_labels|safe }},
+      datasets: [{
+        label: 'User Activity',
+        data: {{ activity_data|safe }},
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)'
+        ]
+      }]
+    }
+  });
+</script>
+{% endblock %}

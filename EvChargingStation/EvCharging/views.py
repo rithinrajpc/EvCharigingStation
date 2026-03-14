@@ -1,3 +1,49 @@
+def analytics_dashboard(request):
+    usage_labels = [s.name for s in ChargingStation.objects.all()]
+    usage_data = [Booking.objects.filter(charging_slot__time_slot__charging_station=s).count() for s in ChargingStation.objects.all()]
+    revenue_labels = usage_labels
+    revenue_data = [Charge.objects.filter(charging_station=s).aggregate(models.Sum('fare'))['fare__sum'] or 0 for s in ChargingStation.objects.all()]
+    activity_labels = ['Active', 'Inactive', 'New']
+    activity_data = [User.objects.count(), ChargingStation.objects.count(), Login.objects.count()]
+    return render(request, 'admin/analytics_dashboard.html', {
+        'usage_labels': usage_labels,
+        'usage_data': usage_data,
+        'revenue_labels': revenue_labels,
+        'revenue_data': revenue_data,
+        'activity_labels': activity_labels,
+        'activity_data': activity_data
+    })
+# -----------------------------
+# STATION DETAIL & RATING
+# -----------------------------
+from django.views.decorators.csrf import csrf_protect
+
+def station_detail(request, station_id):
+    station = ChargingStation.objects.get(id=station_id)
+    reviews = Rating.objects.filter(charging_station=station).select_related('user')
+    avg_rating = reviews.aggregate(models.Avg('rate'))['rate__avg'] or 0
+    return render(request, 'Charging Station/station_detail.html', {
+        'station': station,
+        'reviews': reviews,
+        'avg_rating': round(avg_rating, 2)
+    })
+
+@csrf_protect
+def submit_rating(request, station_id):
+    if request.method == 'POST':
+        station = ChargingStation.objects.get(id=station_id)
+        user = User.objects.get(login_id=request.session.get('lid'))
+        rate = request.POST.get('rate')
+        review = request.POST.get('review')
+        Rating.objects.create(rate=rate, date=datetime.date.today(), charging_station=station, user=user, review=review)
+        return redirect(f'/station_detail/{station_id}')
+    return redirect(f'/station_detail/{station_id}')
+# -----------------------------
+# STATION MAP VIEW
+# -----------------------------
+def station_map(request):
+    stations = ChargingStation.objects.filter(status='verified')
+    return render(request, 'Charging Station/station_map.html', {'stations': stations})
 import datetime
 import smtplib
 from django.contrib import messages

@@ -1,0 +1,22 @@
+{% extends 'Charging Station/charging index.html' %}
+{% block body %}
+<h2>Payment Receipt</h2>
+<div style="border:1px solid #ccc;padding:20px;width:400px;background:#fff;">
+  <p><b>Receipt ID:</b> {{ receipt_id }}</p>
+  <p><b>User:</b> {{ user.name }}</p>
+  <p><b>Station:</b> {{ station.name }}</p>
+  <p><b>Slot:</b> {{ slot.slot_no }}</p>
+  <p><b>Date:</b> {{ booking.date }}</p>
+  <p><b>Amount:</b> ₹{{ amount }}</p>
+  <canvas id="receiptQR"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <script>
+    new QRious({
+      element: document.getElementById('receiptQR'),
+      value: '{{ receipt_id }}',
+      size: 120
+    });
+  </script>
+  <button onclick="window.print()" class="btn btn-primary">Print Receipt</button>
+</div>
+{% endblock %}
