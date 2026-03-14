@@ -1,0 +1,12 @@
+@media (max-width: 768px) {
+  .navbar, .table, .btn {
+    font-size: 1em !important;
+    padding: 8px !important;
+  }
+  h2, h3 {
+    font-size: 1.2em !important;
+  }
+  #map {
+    height: 300px !important;
+  }
+}
